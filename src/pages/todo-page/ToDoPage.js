@@ -15,7 +15,7 @@ function ToDoPage() {
       console.log("Hello world 1 von fetchTodos");
 
       const jsonResponse = await TodosQueries.fetchAllTodos();
-      console.log("MY JSON RESPONSE", jsonResponse);
+      console.log("MY JSON RESPONSE from AllTodos", jsonResponse);
 
       setTodos(jsonResponse);
     } catch (e) {
@@ -25,24 +25,54 @@ function ToDoPage() {
 
   // Alternative Funktion für den API Aufruf
   // Achtung: Wird nicht verwendet
-  function alternativeFetchTodos() {
-    fetch("http://localhost:5050/v1/todos/all")
-      .then((response) => {
-        console.log("Hello world 2 von alternativeFetchTodos");
-        console.log("Das ist meine rohe Antwort", response);
-        return response.json();
-      })
-      .then((todosJson) => {
-        console.log("Hello world 3 von alternativeFetchTodos");
-        // setTodos(todosJson);
-      });
+  // function alternativeFetchTodos() {
+  //   fetch("http://localhost:5050/v1/todos/all")
+  //     .then((response) => {
+  //       console.log("Hello world 2 von alternativeFetchTodos");
+  //       console.log("Das ist meine rohe Antwort", response);
+  //       return response.json();
+  //     })
+  //     .then((todosJson) => {
+  //       console.log("Hello world 3 von alternativeFetchTodos");
+  // setTodos(todosJson);
+  //     });
 
-    console.log("Hello world 1 von alternativeFetchTodos");
+  //   console.log("Hello world 1 von alternativeFetchTodos");
+  // }
+
+  // get by todoId
+
+  async function fetchTodoByID() {
+    try {
+      console.log("Hello world 1 von fetchTodoById");
+
+      const jsonResponse = await TodosQueries.fetchTodoById("1");
+      console.log("MY JSON RESPONSE from TodoById", jsonResponse);
+
+      setTodos(jsonResponse);
+    } catch (e) {
+      console.log("Hello world", e);
+    }
+  }
+
+  async function fetchTodoByUserID() {
+    try {
+      console.log("Hello world 1 von fetchTodoById");
+
+      const jsonResponse = await TodosQueries.fetchTodoByUserId("2");
+      console.log("MY JSON RESPONSE from TodoByUserId", jsonResponse);
+
+      setTodos(jsonResponse);
+    } catch (e) {
+      console.log("Hello world", e);
+    }
   }
 
   // useEffect
   useEffect(() => {
     fetchTodos();
+    fetchTodoByID();
+    fetchTodoByUserID();
   }, []);
 
   //###Ergänzung zum Code vom Unterricht:###

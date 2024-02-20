@@ -16,4 +16,12 @@ async function fetchTodoById(todoId) {
   return todo;
 }
 
-export default { fetchAllTodos, fetchTodoById };
+async function fetchTodoByUserId(userId) {
+  const result = await api.get("/todos/byuserid", { params: { userId } });
+
+  const todo = result.data.todo;
+
+  return todo;
+}
+
+export default { fetchAllTodos, fetchTodoById, fetchTodoByUserId };
