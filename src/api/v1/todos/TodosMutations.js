@@ -10,8 +10,8 @@ async function createTodo(newTodo) {
   return todos;
 }
 
-async function markTodo(isDone) {
-  const result = await api.put("/todos/mark", { params: { isDone } });
+async function markTodo(id, isDone) {
+  const result = await api.put("/todos/mark", { id, isDone });
 
   const todo = result.data.todo;
 

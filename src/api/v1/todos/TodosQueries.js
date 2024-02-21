@@ -19,7 +19,7 @@ async function fetchTodoById(todoId) {
 async function fetchTodoByUserId(userId) {
   const result = await api.get("/todos/byuserid", { params: { userId } });
 
-  const todo = result.data.todo;
+  const todo = result.data;
 
   return todo;
 }

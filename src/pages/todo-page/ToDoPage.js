@@ -46,7 +46,7 @@ function ToDoPage() {
     try {
       console.log("Hello world 1 von fetchTodoById");
 
-      const jsonResponse = await TodosQueries.fetchTodoById("1");
+      const jsonResponse = await TodosQueries.fetchTodoById();
       console.log("MY JSON RESPONSE from TodoById", jsonResponse);
 
       setTodos(jsonResponse);
@@ -59,7 +59,7 @@ function ToDoPage() {
     try {
       console.log("Hello world 1 von fetchTodoById");
 
-      const jsonResponse = await TodosQueries.fetchTodoByUserId("2");
+      const jsonResponse = await TodosQueries.fetchTodoByUserId();
       console.log("MY JSON RESPONSE from TodoByUserId", jsonResponse);
 
       setTodos(jsonResponse);
