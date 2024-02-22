@@ -1,4 +1,4 @@
-import { TodosQueries } from "../../api/v1/todos";
+import { TodosMutations, TodosQueries } from "../../api/v1/todos";
 import ToDoItem from "../../components/common/templates/todo-item";
 import styles from "./ToDoPage.module.css";
 import { useState, useEffect } from "react";
@@ -15,7 +15,7 @@ function ToDoPage() {
       console.log("Hello world 1 von fetchTodos");
 
       const jsonResponse = await TodosQueries.fetchAllTodos();
-      console.log("MY JSON RESPONSE from AllTodos", jsonResponse);
+      console.log("MY JSON RESPONSE", jsonResponse);
 
       setTodos(jsonResponse);
     } catch (e) {
@@ -25,54 +25,27 @@ function ToDoPage() {
 
   // Alternative Funktion für den API Aufruf
   // Achtung: Wird nicht verwendet
-  // function alternativeFetchTodos() {
-  //   fetch("http://localhost:5050/v1/todos/all")
-  //     .then((response) => {
-  //       console.log("Hello world 2 von alternativeFetchTodos");
-  //       console.log("Das ist meine rohe Antwort", response);
-  //       return response.json();
-  //     })
-  //     .then((todosJson) => {
-  //       console.log("Hello world 3 von alternativeFetchTodos");
-  // setTodos(todosJson);
-  //     });
+  function alternativeFetchTodos() {
+    fetch("http://localhost:5050/v1/todos/all")
+      .then((response) => {
+        console.log("Hello world 2 von alternativeFetchTodos");
+        console.log("Das ist meine rohe Antwort", response);
+        return response.json();
+      })
+      .then((todosJson) => {
+        console.log("Hello world 3 von alternativeFetchTodos");
+        // setTodos(todosJson);
+      });
 
-  //   console.log("Hello world 1 von alternativeFetchTodos");
-  // }
-
-  // get by todoId
-
-  async function fetchTodoByID() {
-    try {
-      console.log("Hello world 1 von fetchTodoById");
-
-      const jsonResponse = await TodosQueries.fetchTodoById();
-      console.log("MY JSON RESPONSE from TodoById", jsonResponse);
-
-      setTodos(jsonResponse);
-    } catch (e) {
-      console.log("Hello world", e);
-    }
-  }
-
-  async function fetchTodoByUserID() {
-    try {
-      console.log("Hello world 1 von fetchTodoById");
-
-      const jsonResponse = await TodosQueries.fetchTodoByUserId();
-      console.log("MY JSON RESPONSE from TodoByUserId", jsonResponse);
-
-      setTodos(jsonResponse);
-    } catch (e) {
-      console.log("Hello world", e);
-    }
+    console.log("Hello world 1 von alternativeFetchTodos");
   }
 
   // useEffect
   useEffect(() => {
     fetchTodos();
-    fetchTodoByID();
-    fetchTodoByUserID();
+
+    // ausprobieren ob API-Request klappt
+    // TodosMutations.updateTodo(4, "lesen", true, "2024-01-01");
   }, []);
 
   //###Ergänzung zum Code vom Unterricht:###
@@ -86,8 +59,9 @@ function ToDoPage() {
   //hier: "todo={todos[1]}" gibt das 2. todo weiter.
   return (
     <div className={styles.mainContainer}>
-      <ToDoItem todo={todos[0]}></ToDoItem>
-      <ToDoItem todo={todos[1]}></ToDoItem>
+      {todos.map((item) => (
+        <ToDoItem key={item.id} todo={item} />
+      ))}
     </div>
   );
 }

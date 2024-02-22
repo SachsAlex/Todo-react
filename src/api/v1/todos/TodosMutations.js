@@ -10,27 +10,38 @@ async function createTodo(newTodo) {
   return todos;
 }
 
-async function markTodo(id, isDone) {
-  const result = await api.put("/todos/mark", { id, isDone });
+async function markTodo(todoId, isDone) {
+  const result = await api.put("/todos/mark", {
+    id: todoId,
+    newIsDone: isDone,
+  });
 
-  const todo = result.data.todo;
+  const todo = result.data.updatedTodo;
 
   return todo;
 }
-async function updateTodo(todoId) {
-  const result = await api.put("/todos/update", { params: { todoId } });
 
-  const todo = result.data.todo;
+async function updateTodo(updateId, updateTask, updateIsDone, updateDueDate) {
+  const result = await api.put("/todos/update", {
+    todoId: updateId,
+    newTask: updateTask,
+    newIsDone: updateIsDone,
+    newDueDate: updateDueDate,
+  });
+
+  const todo = result.data.updatedTodo;
 
   return todo;
 }
 
 async function deleteTodo(todoId) {
-  const result = await api.delete("/todos/delete", { params: { todoId } });
+  const result = await api.delete("/todos/delete", {
+    data: { todoId },
+  });
 
-  const todo = result.data.todo;
+  const deletedTodoId = result.data.deletedTodoId;
 
-  return todo;
+  return deletedTodoId;
 }
 
 export default { createTodo, markTodo, updateTodo, deleteTodo };
